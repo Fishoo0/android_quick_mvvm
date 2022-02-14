@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.common.quick.widget.QuickFooterView.Data" />
+
+        <variable
+            name="item"
+            type="Data" />
+
+    </data>
+
+    <com.common.quick.widget.QuickFooterView
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        app:data="@{item}" />
+</layout>

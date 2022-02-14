@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.common.quick.widget.QuickDefaultEmptyView" />
+
+        <variable
+            name="view"
+            type="QuickDefaultEmptyView" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="10"
+            android:elevation="0.3dp"
+            android:visibility="@{view.emptyData.ready ? View.GONE : View.VISIBLE }">
+
+            <!-- loading-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{view.emptyData.loading ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp">
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:visibility="@{!view.emptyData.loading ? View.GONE : View.VISIBLE}" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@{view.viewData.loadingTextDes}"
+                    android:textSize="14sp"
+                    tools:text="加载中 ..." />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <!-- error -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{(view.emptyData.error &amp;&amp; !view.emptyData.loading) ? View.VISIBLE : View.GONE }"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/empty_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:quickSrc="@{view.viewData.errorImageData}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@{view.viewData.getErrorTextDes(view.emptyData.getThrowable())}"
+                    android:textSize="14sp"
+                    tools:text="未知错误" />
+
+                <TextView
+                    android:id="@+id/error_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="26dp"
+                    android:paddingRight="26dp"
+                    android:text="@{view.viewData.errorButtonDes}"
+                    android:textSize="16sp"
+                    tools:text="重试" />
+
+            </LinearLayout>
+
+            <!-- empty -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{(view.emptyData.empty &amp;&amp; !view.emptyData.error &amp;&amp; !view.emptyData.loading) ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
+
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:visibility="@{view.emptyData.loading ? View.GONE : View.VISIBLE}"
+                    app:quickSrc="@{view.viewData.emptyImageData}" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@{view.viewData.emptyTextDes}"
+                    android:textSize="14sp"
+                    tools:text="暂无数据" />
+
+                <TextView
+                    android:id="@+id/empty_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="26dp"
+                    android:paddingRight="26dp"
+                    android:text="@{view.viewData.emptyButtonDes}"
+                    android:textSize="16sp"
+                    android:visibility="@{view.emptyData.loading ||!view.emptyData.allowEmptyRetry? View.INVISIBLE : View.VISIBLE}"
+                    tools:text="重试" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+</layout>
